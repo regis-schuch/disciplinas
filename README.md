@@ -6,5 +6,5 @@ Este repositório centraliza **os códigos-fonte utilizados nas disciplinas** do
 
 ## Estrutura
 
-Cada diretório corresponde a uma disciplina e contém apenas os **códigos desenvolvidos em aula**, exemplos e exercícios práticos.
+Cada diretório corresponde a uma disciplina e contém os **códigos trabalhados em aula**.
 
