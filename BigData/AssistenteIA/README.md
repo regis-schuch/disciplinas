@@ -8,6 +8,14 @@ Este projeto implementa um assistente de IA com interface web para triagem clín
 
 O assistente recebe **sintomas clínicos** como entrada, busca **casos semelhantes** em um banco vetorial e classifica o paciente conforme o **Protocolo de Manchester**, fornecendo também **condutas iniciais**.
 
+### Funcionamento geral do assistente
+
+![Fluxo do Assistente de IA](figs/AgenteIA.png)
+
+### Cores e classificações do Protocolo de Manchester
+
+![Protocolo de Manchester](figs/infografico-protocolo-manchester.jpg)
+
 ---
 
 ## Pré-requisitos
