@@ -117,7 +117,7 @@ Abra o navegador em:
 
 #### Exemplo da interface em execução:
 
-![Interface do Assistente de Triagem](figs/interface.png)
+<img src="figs/interface.png" alt="Interface do Assistente de Triagem" width="600"/>
 
 ---
 
