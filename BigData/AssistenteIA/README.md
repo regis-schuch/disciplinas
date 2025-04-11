@@ -115,6 +115,10 @@ Abra o navegador em:
   - **Justificativa clínica**
   - **Condutas iniciais recomendadas**
 
+#### Exemplo da interface em execução:
+
+![Interface do Assistente de Triagem](figs/interface.png)
+
 ---
 
 ## Visualizar dados com DB Browser for SQLite
