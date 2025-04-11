@@ -87,13 +87,6 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ---
 
-### 6. Criar os arquivos
-
-- `app.py` ou `app-bd.py`: script principal da aplicação.
-- `casos.txt`: arquivo com casos simulados de triagem clínica (um por linha).
-
----
-
 ## Executar o Aplicativo
 
 ```powershell
