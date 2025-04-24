@@ -83,6 +83,9 @@ pip install chromadb
 pip install sentence-transformers
 pip install nest_asyncio
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+python.exe -m pip install --upgrade pip
+pip install --upgrade llama-index
+pip install llama-index-llms-ollama
 ```
 
 ---
