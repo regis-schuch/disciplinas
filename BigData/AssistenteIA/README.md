@@ -93,7 +93,7 @@ pip install llama-index-llms-ollama
 ## Executar o Aplicativo
 
 ```powershell
-streamlit run app.py
+streamlit run app-bd.py
 ```
 
 Abra o navegador em:
