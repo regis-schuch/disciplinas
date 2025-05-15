@@ -148,3 +148,4 @@ case_19: Paciente com perda súbita de força no braço esquerdo...
 - [ChromaDB](https://docs.trychroma.com/)
 - [Ollama](https://ollama.com/)
 - [Streamlit](https://streamlit.io/)
+- [BioBERTpt(clin)](https://aclanthology.org/2020.clinicalnlp-1.7.pdf)
