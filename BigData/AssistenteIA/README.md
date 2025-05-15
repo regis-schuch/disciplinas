@@ -1,6 +1,7 @@
 # Assistente de IA para Triagem Clínica
 
-Este projeto implementa um assistente de IA com interface web para triagem clínica automatizada, utilizando **embeddings semânticos**, **banco vetorial (ChromaDB)** e um **modelo local (Mistral via Ollama)**.
+Este projeto implementa um assistente de IA com interface web para triagem clínica automatizada, utilizando **embeddings semânticos com BioBERTpt(clin)**, **banco vetorial (ChromaDB)** e um **modelo de linguagem local (Mistral via Ollama)**.
+
 
 ---
 
@@ -93,7 +94,7 @@ pip install llama-index-llms-ollama
 ## Executar o Aplicativo
 
 ```powershell
-streamlit run app-bd.py
+streamlit run app-bd-clin.py
 ```
 
 Abra o navegador em:
