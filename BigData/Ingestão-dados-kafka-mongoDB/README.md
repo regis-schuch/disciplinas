@@ -8,6 +8,47 @@ Essa arquitetura simula um cenário comum em aplicações de cidades inteligente
 
 ---
 
+Na arquitetura implementada, os papéis dentro do **Apache Kafka** são definidos conforme os seguintes componentes:
+
+---
+
+### **Produtor (Producer)**
+
+**Quem é:** O **script Python** `open-meteo-to-kafka.py`, executado com a biblioteca `confluent-kafka`.
+
+**Função:**
+* Requisita dados da **API Open-Meteo**
+* Publica esses dados no **tópico Kafka** chamado `tempo`
+
+---
+
+### **Tópico Kafka**
+
+**Quem é:** O **tópico chamado `tempo`**, criado com o comando `kafka-topics.bat`.
+
+**Função:**
+* Atua como o **canal de comunicação assíncrona** entre o produtor e o(s) consumidor(es)
+* Armazena as mensagens publicadas até que sejam consumidas
+
+---
+
+### **Consumidor (Consumer)**
+
+**Quem é:** O **MongoDB Kafka Sink Connector**, executado via **Kafka Connect**.
+
+** Função:**
+* Consome os dados do tópico `tempo`
+* Insere automaticamente os documentos recebidos na **coleção `tempo_now`** do **banco MongoDB `clima_db`**
+
+---
+
+### Fluxo Resumido:
+
+```plaintext
+[Script Python (Producer)] → envia → [Kafka Topic: tempo] → lido por → [MongoDB Sink Connector (Consumer)]
+```
+
+
 ## **Ferramentas e Tecnologias utilizadas**
 
 ### **Apache Kafka**
