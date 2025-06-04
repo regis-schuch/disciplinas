@@ -1,1 +1,305 @@
+# Configuração do Apache Kafka com Ingestão de Dados da API Open-Meteo no MongoDB (Windows 11)
+
+## **Objetivo**
+
+Criar uma pipeline de ingestão de dados em tempo real utilizando o Apache Kafka como sistema de mensagens distribuídas, a API Open-Meteo como fonte de dados climáticos em tempo real, e o MongoDB como banco de dados de armazenamento persistente. A arquitetura permite que dados climáticos atualizados periodicamente sejam enviados por um script Python ao Kafka, processados por um conector específico, e armazenados automaticamente no MongoDB.
+
+Essa arquitetura simula um cenário comum em aplicações de cidades inteligentes, monitoramento ambiental e IoT, onde sensores ou serviços externos produzem dados continuamente que precisam ser processados e armazenados em tempo real.
+
+---
+
+## **Ferramentas e Tecnologias utilizadas**
+
+### **Apache Kafka**
+
+* **Para que serve:** Kafka é uma plataforma de streaming distribuída usada para construir pipelines de dados em tempo real. Ele permite que dados sejam publicados (produzidos) e consumidos.
+* **No projeto:** Atua como um intermediário onde os dados climáticos são enviados (produzidos) e depois encaminhados para outros destinos, como o MongoDB.
+
+---
+
+### **Open-Meteo API**
+
+* **Para que serve:** Open-Meteo (https://open-meteo.com/) é uma API pública que fornece dados meteorológicos atualizados, como temperatura, direção e velocidade do vento.
+* **No projeto:** Serve como a fonte de dados em tempo real, de onde o script Python coleta informações para publicar no Kafka.
+
+---
+
+### **Script Python com confluent-kafka**
+
+* **Para que serve:** `confluent-kafka` é uma biblioteca Python que permite a comunicação com o Apache Kafka (produção e consumo de mensagens).
+* **No projeto:** O script consulta a API Open-Meteo periodicamente, formata os dados e os envia para o tópico Kafka chamado `tempo`. Esse script deve rodar dentro de um ambiente virtual Python com a biblioteca instalada. Neste projeto estou utilizando o mesmo ambiente virtual criado para o projeto Assistente de IA.
+
+---
+
+### **MongoDB**
+
+* **Para que serve:** MongoDB é um banco de dados NoSQL baseado em documentos.
+* **No projeto:** Recebe e armazena os dados climáticos processados pelo conector Kafka MongoDB Sink, permitindo que os dados fiquem disponíveis para consultas, dashboards ou análises posteriores.
+
+---
+
+### **MongoDB Kafka Sink Connector**
+
+* **Para que serve:** Um *Kafka Connector* é um componente do Kafka Connect que move dados entre o Kafka e sistemas externos.
+* **No projeto:** Este conector específico pega os dados do tópico `tempo` e os envia automaticamente para uma **coleção MongoDB**, sem necessidade de código adicional.
+
+---
+
+### **Kafka Connect**
+
+* **Para que serve:** Kafka Connect é um framework da plataforma Kafka que gerencia conectores para integração com bancos de dados, sistemas de arquivos, serviços web, etc.
+* **No projeto:** Roda em modo standalone e executa o MongoDB Sink Connector, responsável por transferir os dados do tópico Kafka para o banco MongoDB.
+
+---
+
+
+
+## 1. Instalar e Configurar o Apache Kafka
+
+### 1.1. Download
+
+* Acesse: [https://kafka.apache.org/downloads](https://kafka.apache.org/downloads)
+* Baixe a última versão binária para Windows
+* Extraia o arquivo em `C:/Kafka/application`
+
+### 1.2. Estrutura de Pastas
+
+Crie a seguinte estrutura:
+
+```
+C:/Kafka/
+|-- application/          # Conteúdo do Kafka extraído
+|-- data/zookeeper/
+|-- tmp/kafka-logs/1/
+|-- tmp/kafka-logs/2/
+|-- batch/
+```
+
+Comandos para criar:
+
+```bat
+C:
+mkdir C:\Kafka\application
+mkdir C:\Kafka\data\zookeeper
+mkdir C:\Kafka\tmp\kafka-logs\1
+mkdir C:\Kafka\tmp\kafka-logs\2
+mkdir C:\Kafka\batch
+```
+
+## 2. Configuração dos Servidores Kafka
+
+### 2.1. Crie os arquivos de configuração
+
+Copie `server.properties` duas vezes e renomeie como:
+
+```
+C:/Kafka/application/config/server1.properties
+C:/Kafka/application/config/server2.properties
+```
+
+### 2.2. Edite `server1.properties`
+
+```properties
+broker.id=1
+listeners=PLAINTEXT://:9092
+log.dirs=C:/Kafka/tmp/kafka-logs/1
+num.partitions=2
+```
+
+### 2.3. Edite `server2.properties`
+
+```properties
+broker.id=2
+listeners=PLAINTEXT://:9093
+log.dirs=C:/Kafka/tmp/kafka-logs/2
+num.partitions=2
+```
+
+### 2.4. Edite `zookeeper.properties`
+
+```properties
+dataDir=C:/Kafka/data/zookeeper
+```
+
+## 3. Criar Batch Files
+
+### 3.1. Inicializar Zookeeper e Brokers
+
+```bat
+# Zookeeper
+echo start C:\Kafka\application\bin\windows\zookeeper-server-start.bat C:\Kafka\application\config\zookeeper.properties > C:\Kafka\batch\Start_Zookeeper.bat
+
+# Kafka Servers
+echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\application\config\server1.properties > C:\Kafka\batch\Start_Kafka_Server1.bat
+
+echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\application\config\server2.properties > C:\Kafka\batch\Start_Kafka_Server2.bat
+```
+
+### 3.2. Criar Tópicos
+
+```bat
+# customer_topic
+echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 2 --partitions 2 --topic customer_topic > C:\Kafka\batch\Create_customer_topic.bat
+
+# product_topic
+echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 2 --partitions 2 --topic product_topic > C:\Kafka\batch\Create_product_topic.bat
+```
+
+### 3.3. Producers e Consumers
+
+```bat
+# Producer Customer
+echo start C:\Kafka\application\bin\windows\kafka-console-producer.bat --topic customer_topic --broker-list localhost:9092,localhost:9093 > C:\Kafka\batch\Producer_customer_topic.bat
+
+# Consumer Customer
+echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --from-beginning --topic customer_topic > C:\Kafka\batch\Consumer_customer_topic.bat
+
+# Producer Product
+echo start C:\Kafka\application\bin\windows\kafka-console-producer.bat --topic product_topic --broker-list localhost:9092,localhost:9093 > C:\Kafka\batch\Producer_product_topic.bat
+
+# Consumer Product
+echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --from-beginning --topic product_topic > C:\Kafka\batch\Consumer_product_topic.bat
+```
+
+### 3.4. Descrever tópicos
+
+```bat
+# Status customer_topic
+echo start C:\Kafka\application\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --topic customer_topic > C:\Kafka\batch\Status_customer_topic.bat
+
+# Status product_topic
+echo start C:\Kafka\application\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --topic product_topic > C:\Kafka\batch\Status_product_topic.bat
+```
+
+## 4. Instalação Manual do Conector MongoDB Sink (Windows)
+
+### 4.1. Baixar e extrair
+
+* Acesse: [https://www.confluent.io/hub/mongodb/kafka-connect-mongodb](https://www.confluent.io/hub/mongodb/kafka-connect-mongodb)
+* Baixe e extraia em: `C:/Kafka/application/connectors`
+
+### 4.2. Configurar Kafka Connect
+
+Edite `C:/Kafka/application/config/connect-standalone.properties`:
+
+```properties
+plugin.path=C:/Kafka/application/connectors
+```
+
+### 4.3. Iniciar Kafka Connect
+
+```bat
+C:\Kafka\application\bin\windows\connect-standalone.bat C:\Kafka\application\config\connect-standalone.properties
+```
+
+### 4.4. Criar `mongodb-sink.json`
+
+Salve em `C:/Kafka/batch/mongodb-sink.json`:
+
+```json
+{
+  "name": "mongodb-tempo-sink",
+  "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+    "tasks.max": "1",
+    "topics": "tempo",
+    "connection.uri": "mongodb://localhost:27017",
+    "database": "clima_db",
+    "collection": "tempo_now",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false"
+  }
+}
+```
+
+### 4.5. Registrar o Conector
+
+Crie o arquivo `start_mongodb_sink.bat`:
+
+```bat
+curl -X POST -H "Content-Type: application/json" ^
+     --data @C:\Kafka\batch\mongodb-sink.json ^
+     http://localhost:8083/connectors
+```
+
+## 5. Ingestão de Dados com API Open-Meteo
+
+### 5.1. Criar Ambiente Python
+
+```ps1
+cd C:\Users\makel\OneDrive\Documentos\Projetos\AgenteIA2
+.\venv310\Scripts\Activate.ps1
+```
+
+### 5.2. Instalar dependências
+
+```bash
+python -m pip install confluent-kafka requests
+```
+
+### 5.3. Criar `open-meteo-to-kafka.py`
+
+```python
+import time
+import json
+import requests
+from confluent_kafka import Producer
+
+producer = Producer({'bootstrap.servers': 'localhost:9092'})
+TOPICO = 'tempo'
+
+def enviar_dados():
+    while True:
+        r = requests.get("https://api.open-meteo.com/v1/forecast?latitude=-29.171&longitude=-53.5&current_weather=true")
+        if r.status_code == 200:
+            tempo = r.json().get("current_weather", {})
+            tempo["timestamp"] = time.strftime('%Y-%m-%dT%H:%M:%S')
+            producer.produce(TOPICO, value=json.dumps(tempo))
+            producer.flush()
+            print("Enviado:", tempo)
+        time.sleep(10)
+
+if __name__ == "__main__":
+    enviar_dados()
+```
+
+### 5.4. Executar Script
+
+```bash
+python C:\Kafka\batch\open-meteo-to-kafka.py
+```
+
+## 6. Verificar Dados no MongoDB Compass
+
+1. Conecte-se a:
+
+   ```
+   mongodb://localhost:27017
+   ```
+2. Acesse o banco:
+
+   ```
+   use clima_db
+   ```
+3. Veja a coleção:
+
+   ```
+   db.tempo_now.find()
+   ```
+
+Exemplo de documento:
+
+```json
+{
+  "weathercode": 3,
+  "temperature": 21,
+  "windspeed": 11.3,
+  "is_day": 1,
+  "interval": 900,
+  "time": "2025-06-04T16:45",
+  "winddirection": 301,
+  "timestamp": "2025-06-04T13:55:41"
+}
+```
 
