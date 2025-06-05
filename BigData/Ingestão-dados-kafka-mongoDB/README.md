@@ -98,8 +98,6 @@ Os papéis dentro do Apache Kafka são definidos conforme os seguintes component
 
 ---
 
-
-
 ## 3. Instalar e Configurar o Apache Kafka
 
 ### 3.1. Download
@@ -274,7 +272,8 @@ curl -X POST -H "Content-Type: application/json" ^
 ### 7.1. Criar Ambiente Python
 
 ```ps1
-cd C:\Users\makel\OneDrive\Documentos\Projetos\AgenteIA2
+cd "C:\Users\SEU_USUARIO\Documents\Projetos\AgenteIA"
+python -m venv venv310
 .\venv310\Scripts\Activate.ps1
 ```
 
@@ -321,7 +320,7 @@ python C:\Kafka\batch\open-meteo-to-kafka.py
 1. Conecte-se a:
 
    ```
-   mongodb://localhost:27017
+   Utilizar o MongoDB Compass ou mongosh no terminal
    ```
 2. Acesse o banco:
 
