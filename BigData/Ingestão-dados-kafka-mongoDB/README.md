@@ -10,86 +10,90 @@ Essa arquitetura simula um cenário comum em aplicações de cidades inteligente
 
 Na arquitetura implementada, os papéis dentro do **Apache Kafka** são definidos conforme os seguintes componentes:
 
----
-
 ### **Produtor (Producer)**
 
-**Quem é:** O **script Python** `open-meteo-to-kafka.py`, executado com a biblioteca `confluent-kafka`.
+**Quem é:** o script Python `open-meteo-to-kafka.py`, executado com a biblioteca `confluent-kafka`.
 
 **Função:**
-* Requisita dados da **API Open-Meteo**
-* Publica esses dados no **tópico Kafka** chamado `tempo`
+* Requisita dados da API Open-Meteo
+* Publica esses dados no tópico Kafka chamado `tempo`
 
 ---
 
 ### **Tópico Kafka**
 
-**Quem é:** O **tópico chamado `tempo`**, criado com o comando `kafka-topics.bat`.
+**Quem é:** o tópico chamado `tempo`, criado com o comando `kafka-topics.bat`.
 
 **Função:**
-* Atua como o **canal de comunicação assíncrona** entre o produtor e o(s) consumidor(es)
+* Atua como o canal de comunicação assíncrona entre o produtor e o(s) consumidor(es)
 * Armazena as mensagens publicadas até que sejam consumidas
 
 ---
 
 ### **Consumidor (Consumer)**
 
-**Quem é:** O **MongoDB Kafka Sink Connector**, executado via **Kafka Connect**.
+**Quem é:** o MongoDB Kafka Sink Connector é executado via Kafka Connect.
 
-** Função:**
+**Função:**
 * Consome os dados do tópico `tempo`
-* Insere automaticamente os documentos recebidos na **coleção `tempo_now`** do **banco MongoDB `clima_db`**
+* Insere automaticamente os documentos recebidos na coleção `tempo_now` do banco MongoDB `clima_db`
 
 ---
 
-### Fluxo Resumido:
+### Fluxo da Pipeline Pipeline Kafka + MongoDB
 
-```plaintext
-[Script Python (Producer)] → envia → [Kafka Topic: tempo] → lido por → [MongoDB Sink Connector (Consumer)]
-```
+![Pipeline](.figs/pipeline.png)
 
 
 ## **Ferramentas e Tecnologias utilizadas**
 
 ### **Apache Kafka**
 
-* **Para que serve:** Kafka é uma plataforma de streaming distribuída usada para construir pipelines de dados em tempo real. Ele permite que dados sejam publicados (produzidos) e consumidos.
-* **No projeto:** Atua como um intermediário onde os dados climáticos são enviados (produzidos) e depois encaminhados para outros destinos, como o MongoDB.
+* **Para que serve:** é uma plataforma de streaming distribuída usada para construir pipelines de dados em tempo real. Ele permite que dados sejam publicados (produzidos) e consumidos.
+* **No projeto:** atua como um intermediário onde os dados climáticos são enviados (produzidos) e depois encaminhados para outros destinos, como o MongoDB.
+
+---
+
+### **Apache Zookeeper**
+
+**Para que serve:** é um serviço centralizado de coordenação e gerenciamento de metadados usado por sistemas distribuídos, como o Apache Kafka. Ele gerencia a configuração do cluster Kafka, detecta falhas em brokers, coordena a eleição de líderes e mantém a consistência entre os nós.
+
+**No projeto:** é responsável por coordenar e manter o estado do cluster Kafka, garantindo que os brokers estejam sincronizados e que o tópico `tempo` esteja disponível para os produtores e consumidores. Seu funcionamento é essencial para a disponibilidade do sistema Kafka como um todo.
 
 ---
 
 ### **Open-Meteo API**
 
 * **Para que serve:** Open-Meteo (https://open-meteo.com/) é uma API pública que fornece dados meteorológicos atualizados, como temperatura, direção e velocidade do vento.
-* **No projeto:** Serve como a fonte de dados em tempo real, de onde o script Python coleta informações para publicar no Kafka.
+* **No projeto:** serve como a fonte de dados em tempo real, de onde o script Python coleta informações para publicar no Kafka.
 
 ---
 
 ### **Script Python com confluent-kafka**
 
 * **Para que serve:** `confluent-kafka` é uma biblioteca Python que permite a comunicação com o Apache Kafka (produção e consumo de mensagens).
-* **No projeto:** O script consulta a API Open-Meteo periodicamente, formata os dados e os envia para o tópico Kafka chamado `tempo`. Esse script deve rodar dentro de um ambiente virtual Python com a biblioteca instalada. Neste projeto estou utilizando o mesmo ambiente virtual criado para o projeto Assistente de IA.
+* **No projeto:** o script consulta a API Open-Meteo periodicamente, formata os dados e os envia para o tópico Kafka chamado `tempo`. Esse script deve rodar dentro de um ambiente virtual Python com a biblioteca instalada. Aqui estamos aproveitando e utilizando o mesmo ambiente virtual criado para o projeto Assistente de IA.
 
 ---
 
 ### **MongoDB**
 
 * **Para que serve:** MongoDB é um banco de dados NoSQL baseado em documentos.
-* **No projeto:** Recebe e armazena os dados climáticos processados pelo conector Kafka MongoDB Sink, permitindo que os dados fiquem disponíveis para consultas, dashboards ou análises posteriores.
+* **No projeto:** Recebe e armazena os dados climáticos processados pelo conector Kafka MongoDB Sink, permitindo que os dados fiquem disponíveis para consultas, dashboards ou outros tipos de análises.
 
 ---
 
 ### **MongoDB Kafka Sink Connector**
 
-* **Para que serve:** Um *Kafka Connector* é um componente do Kafka Connect que move dados entre o Kafka e sistemas externos.
-* **No projeto:** Este conector específico pega os dados do tópico `tempo` e os envia automaticamente para uma **coleção MongoDB**, sem necessidade de código adicional.
+* **Para que serve:** é um componente do Kafka Connect que move dados entre o Kafka e sistemas externos.
+* **No projeto:** este conector específico pega os dados do tópico `tempo` e os envia automaticamente para uma coleção MongoDB.
 
 ---
 
 ### **Kafka Connect**
 
-* **Para que serve:** Kafka Connect é um framework da plataforma Kafka que gerencia conectores para integração com bancos de dados, sistemas de arquivos, serviços web, etc.
-* **No projeto:** Roda em modo standalone e executa o MongoDB Sink Connector, responsável por transferir os dados do tópico Kafka para o banco MongoDB.
+* **Para que serve:** é um framework da plataforma Kafka que gerencia conectores para integração com bancos de dados, sistemas de arquivos, serviços web, etc.
+* **No projeto:** executa o MongoDB Sink Connector, responsável por transferir os dados do tópico Kafka para o banco MongoDB.
 
 ---
 
