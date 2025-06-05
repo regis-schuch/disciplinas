@@ -1,4 +1,4 @@
-# Configuração do Apache Kafka com Ingestão de Dados da API Open-Meteo no MongoDB (Windows 11)
+# Configuração do Apache Kafka com Ingestão de Dados da API Open-Meteo no MongoDB 
 
 ## **Objetivo**
 
@@ -8,7 +8,7 @@ Essa arquitetura simula um cenário comum em aplicações de cidades inteligente
 
 ---
 
-## Fluxo da pipeline de Ingestão de Dados com Apache Kafka
+## 1. Fluxo da pipeline de Ingestão de Dados com Apache Kafka
 
 A Figura a seguir mostra a pipeline completa da ingestão de dados meteorológicos usando Open-Meteo, Apache Kafka e MongoDB:
 
@@ -46,7 +46,7 @@ Os papéis dentro do Apache Kafka são definidos conforme os seguintes component
 
 ---
 
-## **Ferramentas e Tecnologias utilizadas**
+## **2. Ferramentas e Tecnologias utilizadas**
 
 ### **Apache Kafka**
 
@@ -100,15 +100,15 @@ Os papéis dentro do Apache Kafka são definidos conforme os seguintes component
 
 
 
-## 1. Instalar e Configurar o Apache Kafka
+## 3. Instalar e Configurar o Apache Kafka
 
-### 1.1. Download
+### 3.1. Download
 
 * Acesse: [https://kafka.apache.org/downloads](https://kafka.apache.org/downloads)
 * Baixe a última versão binária para Windows
 * Extraia o arquivo em `C:/Kafka/application`
 
-### 1.2. Estrutura de Pastas
+### 3.2. Estrutura de Pastas
 
 Crie a seguinte estrutura:
 
@@ -132,9 +132,9 @@ mkdir C:\Kafka\tmp\kafka-logs\2
 mkdir C:\Kafka\batch
 ```
 
-## 2. Configuração dos Servidores Kafka
+## 4. Configuração dos Servidores Kafka
 
-### 2.1. Crie os arquivos de configuração
+### 4.1. Crie os arquivos de configuração
 
 Copie `server.properties` duas vezes e renomeie como:
 
@@ -143,7 +143,7 @@ C:/Kafka/application/config/server1.properties
 C:/Kafka/application/config/server2.properties
 ```
 
-### 2.2. Edite `server1.properties`
+### 4.2. Edite `server1.properties`
 
 ```properties
 broker.id=1
@@ -152,7 +152,7 @@ log.dirs=C:/Kafka/tmp/kafka-logs/1
 num.partitions=2
 ```
 
-### 2.3. Edite `server2.properties`
+### 4.3. Edite `server2.properties`
 
 ```properties
 broker.id=2
@@ -161,15 +161,15 @@ log.dirs=C:/Kafka/tmp/kafka-logs/2
 num.partitions=2
 ```
 
-### 2.4. Edite `zookeeper.properties`
+### 4.4. Edite `zookeeper.properties`
 
 ```properties
 dataDir=C:/Kafka/data/zookeeper
 ```
 
-## 3. Criar Batch Files
+## 5. Criar Batch Files
 
-### 3.1. Inicializar Zookeeper e Brokers
+### 5.1. Inicializar Zookeeper e Brokers
 
 ```bat
 # Zookeeper
@@ -181,7 +181,7 @@ echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\appl
 echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\application\config\server2.properties > C:\Kafka\batch\Start_Kafka_Server2.bat
 ```
 
-### 3.2. Criar Tópicos
+### 5.2. Criar Tópicos
 
 ```bat
 # customer_topic
@@ -191,7 +191,7 @@ echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstra
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 2 --partitions 2 --topic product_topic > C:\Kafka\batch\Create_product_topic.bat
 ```
 
-### 3.3. Producers e Consumers
+### 5.3. Producers e Consumers
 
 ```bat
 # Producer Customer
@@ -207,7 +207,7 @@ echo start C:\Kafka\application\bin\windows\kafka-console-producer.bat --topic p
 echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --from-beginning --topic product_topic > C:\Kafka\batch\Consumer_product_topic.bat
 ```
 
-### 3.4. Descrever tópicos
+### 5.4. Descrever tópicos
 
 ```bat
 # Status customer_topic
@@ -217,14 +217,14 @@ echo start C:\Kafka\application\bin\windows\kafka-topics.bat --describe --bootst
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --topic product_topic > C:\Kafka\batch\Status_product_topic.bat
 ```
 
-## 4. Instalação Manual do Conector MongoDB Sink (Windows)
+## 6. Instalação Manual do Conector MongoDB Sink (Windows)
 
-### 4.1. Baixar e extrair
+### 6.1. Baixar e extrair
 
 * Acesse: [https://www.confluent.io/hub/mongodb/kafka-connect-mongodb](https://www.confluent.io/hub/mongodb/kafka-connect-mongodb)
 * Baixe e extraia em: `C:/Kafka/application/connectors`
 
-### 4.2. Configurar Kafka Connect
+### 6.2. Configurar Kafka Connect
 
 Edite `C:/Kafka/application/config/connect-standalone.properties`:
 
@@ -232,13 +232,13 @@ Edite `C:/Kafka/application/config/connect-standalone.properties`:
 plugin.path=C:/Kafka/application/connectors
 ```
 
-### 4.3. Iniciar Kafka Connect
+### 6.3. Iniciar Kafka Connect
 
 ```bat
 C:\Kafka\application\bin\windows\connect-standalone.bat C:\Kafka\application\config\connect-standalone.properties
 ```
 
-### 4.4. Criar `mongodb-sink.json`
+### 6.4. Criar `mongodb-sink.json`
 
 Salve em `C:/Kafka/batch/mongodb-sink.json`:
 
@@ -259,7 +259,7 @@ Salve em `C:/Kafka/batch/mongodb-sink.json`:
 }
 ```
 
-### 4.5. Registrar o Conector
+### 6.5. Registrar o Conector
 
 Crie o arquivo `start_mongodb_sink.bat`:
 
@@ -269,22 +269,22 @@ curl -X POST -H "Content-Type: application/json" ^
      http://localhost:8083/connectors
 ```
 
-## 5. Ingestão de Dados com API Open-Meteo
+## 7. Ingestão de Dados com API Open-Meteo
 
-### 5.1. Criar Ambiente Python
+### 7.1. Criar Ambiente Python
 
 ```ps1
 cd C:\Users\makel\OneDrive\Documentos\Projetos\AgenteIA2
 .\venv310\Scripts\Activate.ps1
 ```
 
-### 5.2. Instalar dependências
+### 7.2. Instalar dependências
 
 ```bash
 python -m pip install confluent-kafka requests
 ```
 
-### 5.3. Criar `open-meteo-to-kafka.py`
+### 7.3. Criar `open-meteo-to-kafka.py`
 
 ```python
 import time
@@ -310,13 +310,13 @@ if __name__ == "__main__":
     enviar_dados()
 ```
 
-### 5.4. Executar Script
+### 7.4. Executar Script
 
 ```bash
 python C:\Kafka\batch\open-meteo-to-kafka.py
 ```
 
-## 6. Verificar Dados no MongoDB Compass
+## 8. Verificar Dados no MongoDB Compass
 
 1. Conecte-se a:
 
