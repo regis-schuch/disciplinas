@@ -349,7 +349,7 @@ Exemplo de documento:
 ```
 ---
 
-9. **Link para documentação oficial**:
+**Link para documentação oficial**:
 
    * Apache Kafka: [https://kafka.apache.org/documentation/](https://kafka.apache.org/documentation/)
    * Kafka Connect: [https://docs.confluent.io/home/connect/index.html](https://docs.confluent.io/home/connect/index.html)
