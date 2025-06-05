@@ -40,9 +40,11 @@ Na arquitetura implementada, os papéis dentro do **Apache Kafka** são definido
 
 ---
 
-### Fluxo da Pipeline Pipeline Kafka + MongoDB
+## Fluxo da pipeline de Ingestão de Dados com Apache Kafka
 
-![Pipeline](.figs/pipeline.png)
+A Figura a seguir mostra a pipeline completa da ingestão de dados meteorológicos usando Open-Meteo, Apache Kafka e MongoDB:
+
+![Pipeline Kafka Open-Meteo MongoDB](figs/pipeline.png)
 
 
 ## **Ferramentas e Tecnologias utilizadas**
