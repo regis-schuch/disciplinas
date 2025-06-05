@@ -347,4 +347,15 @@ Exemplo de documento:
   "timestamp": "2025-06-04T13:55:41"
 }
 ```
+---
+
+9. **Link para documentação oficial**:
+
+   * Apache Kafka: [https://kafka.apache.org/documentation/](https://kafka.apache.org/documentation/)
+   * Kafka Connect: [https://docs.confluent.io/home/connect/index.html](https://docs.confluent.io/home/connect/index.html)
+   * MongoDB Connector: [https://www.confluent.io/hub/mongodb/kafka-connect-mongodb](https://www.confluent.io/hub/mongodb/kafka-connect-mongodb)
+
+---
+
+
 
