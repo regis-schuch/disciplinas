@@ -8,7 +8,13 @@ Essa arquitetura simula um cenário comum em aplicações de cidades inteligente
 
 ---
 
-Na arquitetura implementada, os papéis dentro do **Apache Kafka** são definidos conforme os seguintes componentes:
+## Fluxo da pipeline de Ingestão de Dados com Apache Kafka
+
+A Figura a seguir mostra a pipeline completa da ingestão de dados meteorológicos usando Open-Meteo, Apache Kafka e MongoDB:
+
+![Pipeline Kafka Open-Meteo MongoDB](figs/pipeline.png)
+
+Os papéis dentro do Apache Kafka são definidos conforme os seguintes componentes:
 
 ### **Produtor (Producer)**
 
@@ -39,13 +45,6 @@ Na arquitetura implementada, os papéis dentro do **Apache Kafka** são definido
 * Insere automaticamente os documentos recebidos na coleção `tempo_now` do banco MongoDB `clima_db`
 
 ---
-
-## Fluxo da pipeline de Ingestão de Dados com Apache Kafka
-
-A Figura a seguir mostra a pipeline completa da ingestão de dados meteorológicos usando Open-Meteo, Apache Kafka e MongoDB:
-
-![Pipeline Kafka Open-Meteo MongoDB](figs/pipeline.png)
-
 
 ## **Ferramentas e Tecnologias utilizadas**
 
