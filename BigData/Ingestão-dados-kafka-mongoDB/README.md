@@ -1,4 +1,4 @@
-# Configuração do Apache Kafka com Ingestão de Dados da API Open-Meteo no MongoDB 
+# Configuração do Apache Kafka com Ingestão de Dados da API Open-Meteo no MongoDB - (Windows 11)
 
 ## **Objetivo**
 
