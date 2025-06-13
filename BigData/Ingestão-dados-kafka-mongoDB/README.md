@@ -100,6 +100,25 @@ Os papéis dentro do Apache Kafka são definidos conforme os seguintes component
 
 ## 3. Instalar e Configurar o Apache Kafka
 
+### Visão Geral da Configuração
+
+Os passos a seguir mostram como configurar dois **servidores Kafka** (chamados de *brokers*) e um **gerenciador central** chamado *Zookeeper*, que ajuda os brokers a se comunicarem e manterem o sistema organizado.
+
+Como abrir manualmente todos esses serviços seria trabalhoso, utilizamos **arquivos `.bat`** (scripts do Windows) que funcionam como atalhos para iniciar tudo com dois cliques. Esses arquivos são criados com comandos simples no prompt usando `echo`.
+
+Também criamos dois **tópicos** Kafka, que funcionam como *canais de comunicação*: `customer_topic` e `product_topic`.
+
+Depois, iniciamos dois tipos de programas:
+
+- **Producer**: envia mensagens para um tópico.
+- **Consumer**: recebe mensagens desse mesmo tópico.
+
+Por exemplo, ao digitar uma frase no producer, ela aparece no consumer, confirmando que a comunicação está funcionando corretamente.
+
+No final (seção 5.4), esse processo permite verificar que o Kafka foi instalado com sucesso e está pronto para ser usado na troca de mensagens entre diferentes sistemas ou partes de um software.
+
+
+
 ### 3.1. Download
 
 * Acesse: [https://kafka.apache.org/downloads](https://kafka.apache.org/downloads)
