@@ -172,6 +172,21 @@ Execute os comandos abaixo no prompt para criar scripts `.bat` que poderão ser 
 - `echo`: escreve o texto na saída.
 - `>`: redireciona a saída do `echo` para um arquivo.
 
+### Exemplo: Iniciar o Zookeeper com um script `.bat`
+
+O comando `.bat` abaixo cria uma nova janela de terminal e inicia o servidor Zookeeper com as configurações definidas:
+
+```bat
+start C:\Kafka\application\bin\windows\zookeeper-server-start.bat C:\Kafka\application\config\zookeeper.properties
+````
+
+**Explicação do comando:**
+
+* `start`: inicia o comando em uma nova janela do prompt do Windows.
+* `C:\Kafka\application\bin\windows\zookeeper-server-start.bat`: script do Kafka responsável por iniciar o servidor Zookeeper.
+* `C:\Kafka\application\config\zookeeper.properties`: caminho para o arquivo de configuração do Zookeeper, onde estão definidas opções como porta, diretório de dados e tempo de timeout.
+
+
 ### 5.1. Inicializar Zookeeper e Brokers
 
 ```bat
