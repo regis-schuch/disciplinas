@@ -1,4 +1,4 @@
-# Pipeline com integração Kafka + Spark + MongoDB para Processamento de Dados de Vendas
+# Pipeline com integração Kafka + Spark + MongoDB para Processamento de Dados de Vendas - (Ubuntu 24.04)
 
 ## Objetivo
 
