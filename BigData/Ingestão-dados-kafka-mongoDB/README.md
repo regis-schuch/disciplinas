@@ -189,11 +189,11 @@ start C:\Kafka\application\bin\windows\zookeeper-server-start.bat C:\Kafka\appli
 
 ### 5.1. Inicializar Zookeeper e Brokers
 
-Zookeeper
+#### Zookeeper
 ```
 echo start C:\Kafka\application\bin\windows\zookeeper-server-start.bat C:\Kafka\application\config\zookeeper.properties > C:\Kafka\batch\Start_Zookeeper.bat
 ```
-Kafka Servers
+#### Kafka Servers
 ```
 echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\application\config\server1.properties > C:\Kafka\batch\Start_Kafka_Server1.bat
 
@@ -207,15 +207,17 @@ echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\appl
 
 - Batch para criar o tópico `customer_topic`:
 
-```bat
-# customer_topic
+#### customer_topic
+
+```
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 2 --partitions 2 --topic customer_topic > C:\Kafka\batch\Create_customer_topic.bat
 ````
 
 * Batch para criar o tópico `product_topic`:
 
-```bat
-# product_topic
+#### product_topic
+
+```
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 2 --partitions 2 --topic product_topic > C:\Kafka\batch\Create_product_topic.bat
 ```
 
@@ -227,15 +229,15 @@ echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstra
 
 * Batch para inicializar o serviço de producer para o tópico `customer_topic`:
 
-```bat
-# Producer Customer
+#### Producer Customer
+```
 echo start C:\Kafka\application\bin\windows\kafka-console-producer.bat --topic customer_topic --broker-list localhost:9092,localhost:9093 > C:\Kafka\batch\Producer_customer_topic.bat
 ```
 
 * Batch para iniciar o serviço de consumer para o tópico `customer_topic`:
 
-```bat
-# Consumer Customer
+#### Consumer Customer
+```
 echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --from-beginning --topic customer_topic > C:\Kafka\batch\Consumer_customer_topic.bat
 ```
 
@@ -243,15 +245,15 @@ echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstr
 
 * Batch para inicializar o serviço de producer para o tópico `product_topic`:
 
-```bat
-# Producer Product
+#### Producer Product
+```
 echo start C:\Kafka\application\bin\windows\kafka-console-producer.bat --topic product_topic --broker-list localhost:9092,localhost:9093 > C:\Kafka\batch\Producer_product_topic.bat
 ```
 
 * Batch para iniciar o serviço de consumer para o tópico `product_topic`:
 
-```bat
-# Consumer Product
+#### Consumer Product
+```
 echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --from-beginning --topic product_topic > C:\Kafka\batch\Consumer_product_topic.bat
 ```
 
@@ -263,15 +265,15 @@ echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstr
 
 * Batch para descrever o status do Kafka para o tópico `customer_topic`:
 
-```bat
-# Status customer_topic
+#### Status customer_topic
+```
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --topic customer_topic > C:\Kafka\batch\Status_customer_topic.bat
 ```
 
 * Batch para descrever o status do Kafka para o tópico `product_topic`:
 
-```bat
-# Status product_topic
+#### Status product_topic
+```
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --topic product_topic > C:\Kafka\batch\Status_product_topic.bat
 ```
 
