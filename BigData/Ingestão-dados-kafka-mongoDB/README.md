@@ -189,11 +189,12 @@ start C:\Kafka\application\bin\windows\zookeeper-server-start.bat C:\Kafka\appli
 
 ### 5.1. Inicializar Zookeeper e Brokers
 
-```bat
 # Zookeeper
+```
 echo start C:\Kafka\application\bin\windows\zookeeper-server-start.bat C:\Kafka\application\config\zookeeper.properties > C:\Kafka\batch\Start_Zookeeper.bat
-
+```
 # Kafka Servers
+```
 echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\application\config\server1.properties > C:\Kafka\batch\Start_Kafka_Server1.bat
 
 echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\application\config\server2.properties > C:\Kafka\batch\Start_Kafka_Server2.bat
