@@ -200,9 +200,7 @@ echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\appl
 echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\application\config\server2.properties > C:\Kafka\batch\Start_Kafka_Server2.bat
 ```
 
-Aqui está o conteúdo corrigido para o `README.md`, mantendo **exatamente a estrutura e comandos originais**, apenas com correções de **gramática, ortografia, pontuação e consistência**:
 
-````markdown
 ### 5.2. Criar Tópicos
 
 #### Vamos criar dois tópicos para teste:
