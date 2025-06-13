@@ -165,7 +165,12 @@ num.partitions=2
 dataDir=C:/Kafka/data/zookeeper
 ```
 
-## 5. Criar Batch Files
+## 5. Criar Batch Files a partir do prompt
+
+Execute os comandos abaixo no prompt para criar scripts `.bat` que poderão ser executados posteriormente:
+
+- `echo`: escreve o texto na saída.
+- `>`: redireciona a saída do `echo` para um arquivo.
 
 ### 5.1. Inicializar Zookeeper e Brokers
 
