@@ -201,9 +201,15 @@ echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\appl
 
 ### 5.2. Criar Tópicos
 
+#### Vamos criar dois topicos para teste:
+ 
+- Batch para criar topico customer:
+
 ```bat
 # customer_topic
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 2 --partitions 2 --topic customer_topic > C:\Kafka\batch\Create_customer_topic.bat
+
+# Batch para criar topico product:
 
 # product_topic
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 2 --partitions 2 --topic product_topic > C:\Kafka\batch\Create_product_topic.bat
@@ -211,15 +217,27 @@ echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstra
 
 ### 5.3. Producers e Consumers
 
+#### Vamos agora, iniciar o serviço de producer e consumer, para assim podermos enviar e receber mensagens atraves do kafka broker (customer_topic)
+ 
+- Batch para inicializar o serviço de producer para o topico customer_topic
+
 ```bat
 # Producer Customer
 echo start C:\Kafka\application\bin\windows\kafka-console-producer.bat --topic customer_topic --broker-list localhost:9092,localhost:9093 > C:\Kafka\batch\Producer_customer_topic.bat
 
+- Vamos agora, criar a batch para iniciar o serviço de consumer, par aassim podermos receber mensagens do kafka broker (customer_topic)
+
 # Consumer Customer
 echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --from-beginning --topic customer_topic > C:\Kafka\batch\Consumer_customer_topic.bat
 
+#### Vamos, iniciar o serviço de producer e consumer, para assim podermos enviar e receber mensagens atraves do kafka broker (product_topic)
+ 
+- Batch para inicializar o serviço de producer para o topico product_topic
+
 # Producer Product
 echo start C:\Kafka\application\bin\windows\kafka-console-producer.bat --topic product_topic --broker-list localhost:9092,localhost:9093 > C:\Kafka\batch\Producer_product_topic.bat
+
+- Vamos, criar a batch para iniciar o serviço de consumer, par aassim podermos receber mensagens do kafka broker (product_topic)
 
 # Consumer Product
 echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --from-beginning --topic product_topic > C:\Kafka\batch\Consumer_product_topic.bat
@@ -227,9 +245,15 @@ echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstr
 
 ### 5.4. Descrever tópicos
 
+#### Vamos Verificar e descrever o status dos topicos do kafka
+ 
+- Batch para descrever o status do kafka para o topico customer_topic
+
 ```bat
 # Status customer_topic
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --topic customer_topic > C:\Kafka\batch\Status_customer_topic.bat
+
+- Batch para descrever o status do kafka para o topico product_topic
 
 # Status product_topic
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --topic product_topic > C:\Kafka\batch\Status_product_topic.bat
@@ -279,7 +303,7 @@ Salve em `C:/Kafka/batch/mongodb-sink.json`:
 
 ### 6.5. Registrar o Conector
 
-Crie o arquivo `start_mongodb_sink.bat`:
+No prompt, execute o comando para criar o arquivo `start_mongodb_sink.bat`:
 
 ```bat
 curl -X POST -H "Content-Type: application/json" ^
@@ -290,6 +314,8 @@ curl -X POST -H "Content-Type: application/json" ^
 ## 7. Ingestão de Dados com API Open-Meteo
 
 ### 7.1. Criar Ambiente Python
+
+Aqui estou aproveitando o mesmo ambiente criado na atividade do Assistente de IA.
 
 ```ps1
 cd "C:\Users\SEU_USUARIO\Documents\Projetos\AgenteIA"
