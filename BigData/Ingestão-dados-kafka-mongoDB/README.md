@@ -199,65 +199,85 @@ echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\appl
 echo start C:\Kafka\application\bin\windows\kafka-server-start.bat C:\Kafka\application\config\server2.properties > C:\Kafka\batch\Start_Kafka_Server2.bat
 ```
 
+Aqui está o conteúdo corrigido para o `README.md`, mantendo **exatamente a estrutura e comandos originais**, apenas com correções de **gramática, ortografia, pontuação e consistência**:
+
+````markdown
 ### 5.2. Criar Tópicos
 
-#### Vamos criar dois topicos para teste:
- 
-- Batch para criar topico customer:
+#### Vamos criar dois tópicos para teste:
+
+- Batch para criar o tópico `customer_topic`:
 
 ```bat
 # customer_topic
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 2 --partitions 2 --topic customer_topic > C:\Kafka\batch\Create_customer_topic.bat
+````
 
-# Batch para criar topico product:
+* Batch para criar o tópico `product_topic`:
 
+```bat
 # product_topic
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 2 --partitions 2 --topic product_topic > C:\Kafka\batch\Create_product_topic.bat
 ```
 
+---
+
 ### 5.3. Producers e Consumers
 
-#### Vamos agora, iniciar o serviço de producer e consumer, para assim podermos enviar e receber mensagens atraves do kafka broker (customer_topic)
- 
-- Batch para inicializar o serviço de producer para o topico customer_topic
+#### Vamos agora iniciar os serviços de **producer** e **consumer** para enviar e receber mensagens através do Kafka broker (`customer_topic`):
+
+* Batch para inicializar o serviço de producer para o tópico `customer_topic`:
 
 ```bat
 # Producer Customer
 echo start C:\Kafka\application\bin\windows\kafka-console-producer.bat --topic customer_topic --broker-list localhost:9092,localhost:9093 > C:\Kafka\batch\Producer_customer_topic.bat
+```
 
-- Vamos agora, criar a batch para iniciar o serviço de consumer, par aassim podermos receber mensagens do kafka broker (customer_topic)
+* Batch para iniciar o serviço de consumer para o tópico `customer_topic`:
 
+```bat
 # Consumer Customer
 echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --from-beginning --topic customer_topic > C:\Kafka\batch\Consumer_customer_topic.bat
+```
 
-#### Vamos, iniciar o serviço de producer e consumer, para assim podermos enviar e receber mensagens atraves do kafka broker (product_topic)
- 
-- Batch para inicializar o serviço de producer para o topico product_topic
+#### Agora vamos repetir o processo para o tópico `product_topic`:
 
+* Batch para inicializar o serviço de producer para o tópico `product_topic`:
+
+```bat
 # Producer Product
 echo start C:\Kafka\application\bin\windows\kafka-console-producer.bat --topic product_topic --broker-list localhost:9092,localhost:9093 > C:\Kafka\batch\Producer_product_topic.bat
+```
 
-- Vamos, criar a batch para iniciar o serviço de consumer, par aassim podermos receber mensagens do kafka broker (product_topic)
+* Batch para iniciar o serviço de consumer para o tópico `product_topic`:
 
+```bat
 # Consumer Product
 echo start C:\Kafka\application\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --from-beginning --topic product_topic > C:\Kafka\batch\Consumer_product_topic.bat
 ```
 
-### 5.4. Descrever tópicos
+---
 
-#### Vamos Verificar e descrever o status dos topicos do kafka
- 
-- Batch para descrever o status do kafka para o topico customer_topic
+### 5.4. Descrever Tópicos
+
+#### Vamos verificar e descrever o status dos tópicos no Kafka:
+
+* Batch para descrever o status do Kafka para o tópico `customer_topic`:
 
 ```bat
 # Status customer_topic
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --topic customer_topic > C:\Kafka\batch\Status_customer_topic.bat
+```
 
-- Batch para descrever o status do kafka para o topico product_topic
+* Batch para descrever o status do Kafka para o tópico `product_topic`:
 
+```bat
 # Status product_topic
 echo start C:\Kafka\application\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --topic product_topic > C:\Kafka\batch\Status_product_topic.bat
 ```
+
+```
+
 
 ## 6. Instalação Manual do Conector MongoDB Sink (Windows)
 
