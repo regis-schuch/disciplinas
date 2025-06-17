@@ -138,6 +138,10 @@ make run
 
 ## Sintaxe da DSL iDevS (Exemplo)
 
+Consulte a documentação completa da sintaxe aqui:  
+**[DSL_Syntax.md](./docs/DSL_Syntax.md)**
+
+
 ```plaintext
 IntegrationSolution "PurchasePipeline" {
     Infrastructure {
