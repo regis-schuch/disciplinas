@@ -190,7 +190,7 @@ IntegrationSolution "PurchasePipeline" {
 
 ---
 
-## 🎯 **Resultados Gerados**
+## **Resultados Gerados**
 
 Após executar o parser e o gerador, os seguintes arquivos são criados na pasta `/generated`:
 
