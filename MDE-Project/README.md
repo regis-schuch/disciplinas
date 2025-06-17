@@ -1,4 +1,4 @@
-# iDevS API: Code Generator for Integration Processes in C**
+# iDevS API: Code Generator for Integration Processes in C
 
 ---
 
