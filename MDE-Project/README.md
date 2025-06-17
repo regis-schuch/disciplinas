@@ -190,7 +190,9 @@ IntegrationSolution "PurchasePipeline" {
 
 ---
 
-## O que é gerado?
+## 🎯 **Resultados Gerados**
+
+Após executar o parser e o gerador, os seguintes arquivos são criados na pasta `/generated`:
 
 | Arquivo                 | Descrição                               |
 | ----------------------- | --------------------------------------- |
@@ -200,10 +202,84 @@ IntegrationSolution "PurchasePipeline" {
 
 ---
 
-## Funcionamento Interno
+### **Arquivo: integration\_process.c**
 
-1. **DSL Model:** O arquivo `.idevs` descreve infraestrutura, serviços e processos.
-2. **ANTLR:** Gera parser, lexer e visitor com base na gramática `iDevS.g4`.
-3. **Visitor:** Constrói a AST (Abstract Syntax Tree) do modelo.
-4. **Templates Jinja2:** Consomem a AST e geram os arquivos `.c`, `.h` e `Makefile`.
-5. **Resultado:** Código executável representando o processo de integração descrito.
+```c
+#include "integration_process.h"
+#include <stdio.h>
+
+void main() {
+    printf("Launcher: MainLauncher\n");
+    printf("Connecting to Store at https://store.api.com\n");
+    printf("Connecting to Taxi at https://taxi.api.com\n");
+    printf("Connecting to Messaging at https://msg.api.com\n");
+
+    printf("Running Process: PurchaseFlow\n");
+    step_RetrievePurchase();
+    step_CheckAndBook();
+    step_Archive();
+}
+
+void step_RetrievePurchase() {
+    printf("[Step] RetrievePurchase\n");
+    printf(" - Read from Store\n");
+}
+
+void step_CheckAndBook() {
+    printf("[Step] CheckAndBook\n");
+    printf(" - If purchase >= 150\n");
+    printf("   * Write to Taxi\n");
+    printf("   * Write to Messaging\n");
+}
+
+void step_Archive() {
+    printf("[Step] Archive\n");
+    printf(" - Write to Messaging\n");
+}
+```
+
+---
+
+### **Arquivo: integration\_process.h**
+
+```c
+#ifndef INTEGRATION_PROCESS_H
+#define INTEGRATION_PROCESS_H
+
+void step_RetrievePurchase();
+void step_CheckAndBook();
+void step_Archive();
+
+#endif
+```
+
+---
+
+### **Arquivo: Makefile**
+
+```Makefile
+CC=clang-morello
+CFLAGS=-march=morello+c64 -mabi=purecap -g
+
+all: integration_process
+
+integration_process: integration_process.c integration_process.h
+	$(CC) $(CFLAGS) -o integration_process integration_process.c
+
+run:
+	proccontrol -m cheric18n -s enable ./integration_process
+
+clean:
+	rm -f integration_process
+```
+
+---
+
+## Observações sobre os resultados
+
+- O código gerado inclui todas as etapas (`Steps`) e ações (`Actions`) descritas no modelo `.idevs`.
+- Gera funções C nomeadas como `step_<nome_da_step>()` para cada etapa.
+- Inclui headers para modularidade e segurança no código.
+- O `Makefile` é configurável, podendo ser adaptado tanto para ambientes Morello quanto para Linux padrão.
+- O pipeline suporta geração incremental: qualquer novo processo descrito na DSL gera novo código automaticamente.
+
