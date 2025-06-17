@@ -1,0 +1,48 @@
+IntegrationSolution "PurchasePipeline" {
+    Infrastructure {
+        Launcher "MainLauncher"
+        SecureHardware "MorelloBoard"
+        Compartment "MainCompartment"
+        RootOfTrust "GlobalCA"
+        SourceCode "integration_process.c"
+    }
+
+    Services {
+        API "Store" {
+            url="https://store.api.com"
+        }
+        API "Taxi" {
+            url="https://taxi.api.com"
+        }
+        API "Messaging" {
+            url="https://msg.api.com"
+        }
+    }
+
+    KeysExchange {
+        ProgramPublicKey "PurchaseFlow"
+        ServicePublicKey "Store"
+        ServicePublicKey "Taxi"
+        ServicePublicKey "Messaging"
+    }
+
+    Process "PurchaseFlow" {
+        uses ["Store", "Taxi", "Messaging"]
+
+        Step "RetrievePurchase" {
+            Read from Store
+        }
+
+        Step "CheckAndBook" {
+            If "purchase >= 150" {
+                Write to Taxi
+                Write to Messaging
+            }
+        }
+
+        Step "Archive" {
+            Write to Messaging
+        }
+    }
+}
+
