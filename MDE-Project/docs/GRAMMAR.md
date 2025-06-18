@@ -127,11 +127,3 @@ COMMENT : '//' ~[\r\n]* -> skip ;
 | `Step`               | Etapas do pipeline                             |
 | `Action`             | Ações (Read, Write, If, For, etc)              |
 
----
-
-## Por que documentar?
-
-- Validação formal da linguagem.
-- Base para artigos, teses e documentação técnica.
-- Facilita manutenção, extensão e evolução da DSL.
-- Clareza e robustez para qualquer desenvolvedor ou pesquisador.
