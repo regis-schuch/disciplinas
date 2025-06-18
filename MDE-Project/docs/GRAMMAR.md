@@ -1,20 +1,20 @@
 
-# 📜 Documentação Formal da Gramática — iDevS DSL
+# Documentação Formal da Gramática — iDevS DSL
 
-## 🔗 Definição Geral
+## Definição Geral
 
 A gramática da DSL iDevS foi implementada utilizando **ANTLR 4**, seguindo os princípios de uma **context-free grammar (CFG)**.
 
 Ela permite descrever:
 
-- 🏗️ Infraestrutura de execução segura.
-- 🔗 Serviços externos (APIs, bancos, mensageria).
-- 🔐 Troca de chaves.
-- 🔁 Processos de integração, steps e ações.
+- Infraestrutura de execução segura.
+- Serviços externos (APIs, bancos, mensageria).
+- Troca de chaves.
+- Processos de integração, steps e ações.
 
 ---
 
-## 🔤 Gramática Completa
+## Gramática Completa
 
 ```antlr
 grammar iDevS;
@@ -115,13 +115,13 @@ COMMENT : '//' ~[\r\n]* -> skip ;
 
 ---
 
-## 🏗️ Estrutura Resumida
+## Estrutura Resumida
 
 | Bloco               | Descrição                                        |
 |---------------------|--------------------------------------------------|
 | `IntegrationSolution`| Raiz, define toda a solução de integração       |
 | `Infrastructure`     | Launcher, hardware, compartimento, rootOfTrust |
-| `Services`           | Define serviços externos (API, DB, etc)        |
+| `Services`           | Define serviços externos (API)        |
 | `KeysExchange`       | Define chaves públicas                         |
 | `Process`            | Pipeline com steps                             |
 | `Step`               | Etapas do pipeline                             |
@@ -129,14 +129,9 @@ COMMENT : '//' ~[\r\n]* -> skip ;
 
 ---
 
-## 🔥 Por que documentar?
+## Por que documentar?
 
-- ✅ Validação formal da linguagem.
-- ✅ Base para artigos, teses e documentação técnica.
-- ✅ Facilita manutenção, extensão e evolução da DSL.
-- ✅ Clareza e robustez para qualquer desenvolvedor ou pesquisador.
-
----
-
-**Grupo de Computação Aplicada (GCA) — Unijuí**  
-**Projeto CAMB — University of Cambridge**
+- Validação formal da linguagem.
+- Base para artigos, teses e documentação técnica.
+- Facilita manutenção, extensão e evolução da DSL.
+- Clareza e robustez para qualquer desenvolvedor ou pesquisador.
