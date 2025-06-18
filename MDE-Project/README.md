@@ -194,6 +194,23 @@ IntegrationSolution "PurchasePipeline" {
 
 ---
 
+## Documentação Formal da Gramática da DSL iDevS
+
+Além da descrição da sintaxe, este projeto inclui a **definição formal da gramática da linguagem iDevS**, implementada em **ANTLR4**, que especifica todas as regras sintáticas da DSL.
+
+A gramática formal descreve:
+
+- Estruturas de infraestrutura (`Infrastructure`, `Launcher`, `Compartment`, `SecureHardware`, `RootOfTrust`, `SourceCode`)
+- Declaração e configuração de serviços (`Services`, `API`, `Database`, `Queue`, etc.)
+- Troca de chaves (`KeysExchange`)
+- Definição de processos (`Process`) com `Steps` e suas `Actions` (`Read`, `Write`, `If`, `For`, `Transform`, `StoreLocalData`, `RetrieveLocalData`)
+- Definição completa dos tokens, regras lexicais e sintáticas.
+
+Acesse a documentação formal completa da gramática aqui:  
+**[GRAMMAR.md](./docs/GRAMMAR.md)**
+
+---
+
 ## **Resultados Gerados**
 
 Após executar o parser e o gerador, os seguintes arquivos são criados na pasta `/generated`:
