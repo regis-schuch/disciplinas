@@ -27,6 +27,23 @@ Com o experimento buscamos entender:
 
 ---
 
+## Arquitetura da solução
+
+A Figura a seguir apresenta a arquitetura completa do experimento de WordCount
+utilizando Hadoop Streaming aplicado às obras de Machado de Assis.
+
+O fluxo inclui:
+
+- obtenção dos textos do Projeto Gutenberg;
+- armazenamento distribuído no HDFS;
+- processamento com MapReduce (mapper e reducer em Python);
+- geração dos resultados no HDFS;
+- análise e visualização com Python (gráficos e nuvem de palavras).
+
+![Arquitetura do WordCount com Hadoop Streaming](./machado_assis/WordCount.png)
+
+---
+
 ## Estrutura do projeto
 
 ### Sistema de arquivos local (Linux)
