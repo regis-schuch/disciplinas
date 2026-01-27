@@ -40,7 +40,7 @@ O fluxo inclui:
 - geração dos resultados no HDFS;
 - análise e visualização com Python (gráficos e nuvem de palavras).
 
-![Arquitetura do WordCount com Hadoop Streaming](./machado_assis/WordCount.png)
+![Arquitetura do WordCount com Hadoop Streaming](./machado-assis/WordCount.png)
 
 ---
 
