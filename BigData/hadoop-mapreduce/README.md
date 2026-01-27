@@ -36,10 +36,14 @@ Com o experimento buscamos entender:
 ~/BIG-DATA/machado_assis/
 mapper.py
 reducer.py
-livro1.txt
-livro2.txt
-livro3.txt
-livroN.txt
+dom_casmurro.txt
+memorias_postumas.txt
+quincas_borba.txt
+esau_jacob.txt
+helena.txt
+papeis_avulsos.txt
+reliquias_de_casa_velha.txt
+memorial_de_ayres.txt
 
 ```
 
