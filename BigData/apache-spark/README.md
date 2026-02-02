@@ -4,7 +4,7 @@ Este repositório apresenta um **tutorial de instalação e configuração do Ap
 
 ---
 
-## 🎯 Objetivo do exemplo
+## Objetivo do exemplo
 
 Demonstrar como o **Apache Spark** pode:
 
@@ -158,7 +158,7 @@ spark = SparkSession.builder \
     .appName("TendenciasAoVivo") \
     .getOrCreate()
 
-# Para reduzir logs e ficar mais "limpo" para aula
+# Reduzir logs para ficar mais "limpo"
 spark.sparkContext.setLogLevel("WARN")
 
 # 2) Lê um fluxo de texto vindo do socket (localhost:9999)
@@ -174,14 +174,14 @@ palavras = linhas.select(
     explode(split(lower(col("value")), r"\s+")).alias("palavra")
 )
 
-# 4) Remove "vazios" (caso alguém digite espaços)
+# 4) Remove "vazios" (caso sejam digitados espaços)
 palavras_limpas = palavras.filter(col("palavra") != "")
 
 # 5) Conta as palavras em tempo real (ranking)
 contagem = palavras_limpas.groupBy("palavra").count().orderBy(col("count").desc())
 
 # 6) Mostra na tela continuamente (console)
-# outputMode="complete" imprime a tabela inteira atualizada a cada gatilho.
+# outputMode="complete" imprime a tabela completa atualizada a cada 5 segundos.
 query = contagem.writeStream \
     .outputMode("complete") \
     .format("console") \
