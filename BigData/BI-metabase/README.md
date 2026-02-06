@@ -224,7 +224,7 @@ Configuração correta no Metabase:
 
 Após a criação das análises, é possível organizá-las em um **dashboard interativo**, conforme ilustrado a seguir.
 
-![Dashboard de Análises do DW no Metabase](./figs/painel_metabase_dw.png)
+![Dashboard de Análises do DW no Metabase](./figs/painel-exemplo.png)
 
 ### Passos
 
