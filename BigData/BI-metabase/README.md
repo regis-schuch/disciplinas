@@ -23,29 +23,12 @@ O ambiente final consiste em:
   * 1 tabela fato (`fato_vendas`)
   * 2 dimensões (`dim_produto`, `dim_tempo`)
 * **Metabase** como ferramenta de BI/OLAP
-* Consultas visuais sem necessidade de SQL 
+* Consultas visuais sem necessidade de SQL
 
 Arquitetura lógica:
 
 ```
 CSV → MySQL (DW estrela) → Metabase → Gráficos → Dashboards
-```
-
----
-
-## Estrutura de Arquivos
-
-```
-.
-├── README.md
-├── data/
-│   ├── fato_vendas.csv
-│   ├── dim_produto.csv
-│   └── dim_tempo.csv
-├── sql/
-│   ├── 01_create_dw.sql
-│   └── 02_load_data.sql
-
 ```
 
 ---
@@ -59,7 +42,7 @@ CSV → MySQL (DW estrela) → Metabase → Gráficos → Dashboards
 ### Software
 
 * MySQL 8+
-* Java **11** 
+* Java **11**
 * Metabase (arquivo `.jar`)
 
 ---
@@ -151,6 +134,14 @@ CREATE TABLE fato_vendas (
 
 ---
 
+## Modelo Estrela do Data Warehouse
+
+A Figura a seguir apresenta o **modelo estrela do DW de vendas**, destacando a tabela fato e suas dimensões, conforme implementado no MySQL.
+
+![Modelo estrela do Data Warehouse de Vendas](./figs/modelo_estrela_dw_vendas.png)
+
+---
+
 ### 3. Carga de dados via CSV
 
 **`sql/02_load_data.sql`**
@@ -183,7 +174,7 @@ IGNORE 1 LINES;
 3. Host: `localhost`
 4. Porta: `3306`
 5. Banco: `dw_vendas`
-6. Usuário: `root` 
+6. Usuário: `root`
 7. Salvar
 
 O Metabase fará o **sync automático** das tabelas.
@@ -230,6 +221,12 @@ Configuração correta no Metabase:
 ---
 
 ## Dashboards
+
+Após a criação das análises, é possível organizá-las em um **dashboard interativo**, conforme ilustrado a seguir.
+
+![Dashboard de Análises do DW no Metabase](./figs/painel_metabase_dw.png)
+
+### Passos
 
 1. **Dashboards → New**
 2. Adicione perguntas salvas
