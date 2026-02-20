@@ -67,7 +67,6 @@ python --version
 ### 4. Criar ambiente virtual
 
 ```powershell
-cd "C:\Users\SEU_USUARIO\Documents\Projetos\AgenteIA"
 python -m venv venv310
 .\venv310\Scripts\Activate.ps1
 ```
