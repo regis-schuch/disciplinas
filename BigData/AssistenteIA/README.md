@@ -13,7 +13,7 @@ O assistente recebe **sintomas clínicos** como entrada, busca **casos semelhant
 O código implementa uma aplicação de **RAG**. A arquitetura é dividida nas seguintes partes principais:
 
 1. **Interface do Usuário (Frontend) & Orquestração:**
-* **Streamlit (`st`):** Responsável por criar a interface web onde o profissional de saúde insere os sintomas e visualiza o resultado da triagem.
+* Interface web onde o profissional de saúde insere os sintomas e visualiza o resultado da triagem.
 * **Lógica da Aplicação Python:** O script principal atua como o orquestrador. Ele gerencia o fluxo de dados, aciona o modelo de embedding, consulta o banco de dados vetorial, monta o prompt enriquecido e chama o LLM.
 
 
@@ -31,12 +31,12 @@ O código implementa uma aplicação de **RAG**. A arquitetura é dividida nas s
 ### Resumo do Fluxo de Dados
 
 1. **Setup:** Ao iniciar, o sistema carrega os modelos e lê o arquivo `casos.txt`, convertendo os casos em vetores e salvando-os no ChromaDB (se ainda não existirem).
-2. **Entrada:** O usuário digita os sintomas no Streamlit.
+2. **Entrada:** O usuário digita os sintomas na interface.
 3. **Vetorização:** O texto dos sintomas é convertido em um vetor pelo modelo BioBERTpt.
 4. **Busca:** Esse vetor é usado para consultar no ChromaDB os 3 casos históricos mais parecidos.
 5. **Prompting:** A aplicação cria um prompt complexo que inclui: a persona do assistente, os sintomas do paciente e o texto dos 3 casos similares encontrados (contexto).
 6. **Inferência:** Esse prompt é enviado ao modelo Mistral (via Ollama).
-7. **Saída:** O modelo gera a resposta clínica, que é exibida na tela do Streamlit.
+7. **Saída:** O modelo gera a resposta clínica, que é exibida na tela de saída.
 
 <img src="figs/Diagrama.png" alt="Fluxo do Assistente de IA" width="500"/>
 
@@ -75,7 +75,7 @@ ollama list
 ollama pull mistral
 ```
 
-> Obs.: O modelo `llama3` pode exigir mais memória RAM.
+> Obs.: O Mistral é um modelo mais leve e para fins de demonstração foi o escolhido. Outros modelos podem exigir mais memória RAM.
 
 ---
 
@@ -88,6 +88,8 @@ ollama pull mistral
 ```bash
 python --version
 ```
+
+> Obs.: Por questões de compatibilidade com as demais dependências usou-se o Python na versão 3.10.
 
 ---
 
@@ -114,6 +116,8 @@ python.exe -m pip install --upgrade pip
 pip install --upgrade llama-index
 pip install llama-index-llms-ollama
 ```
+
+> Obs.: PyTorch a partir da URL (https://download.pytorch.org/whl/cu118) para uso de GPU (CUDA), caso possua o recurso.
 
 ---
 
