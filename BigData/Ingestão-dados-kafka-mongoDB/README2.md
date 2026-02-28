@@ -14,6 +14,8 @@ Nesta arquitetura, um script Python requisita periodicamente dados climáticos a
 
 A pipeline completa para a ingestão de dados meteorológicos usando Open-Meteo, Apache Kafka e MongoDB é ilustrada na figura abaixo.
 
+![Pipeline Kafka Open-Meteo MongoDB](figs/arquitetura.png)
+
 Os papéis dentro do Apache Kafka são definidos pelos seguintes componentes:
 
 * **Produtor (Producer)**: O script Python `open-meteo-to-kafka.py`, executado com a biblioteca `confluent-kafka`.
