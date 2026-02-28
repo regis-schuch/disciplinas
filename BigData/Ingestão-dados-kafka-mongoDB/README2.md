@@ -628,3 +628,12 @@ Você deverá ver mensagens no formato JSON aparecendo na tela.
 5. **Compass:** Interface gráfica que exibe o banco assim que os dados são persistidos no MongoDB.
 
 ```
+---
+
+**Link para documentação oficial**:
+
+   * Apache Kafka: [https://kafka.apache.org/documentation/](https://kafka.apache.org/documentation/)
+   * Kafka Connect: [https://docs.confluent.io/home/connect/index.html](https://docs.confluent.io/home/connect/index.html)
+   * MongoDB Connector: [https://www.confluent.io/hub/mongodb/kafka-connect-mongodb](https://www.confluent.io/hub/mongodb/kafka-connect-mongodb)
+
+---
