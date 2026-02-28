@@ -4,6 +4,23 @@ Este repositório contém o guia passo a passo para configurar um cluster Apache
 
 ---
 
+## Objetivo
+
+O objetivo deste projeto é construir uma pipeline de ingestão de dados em tempo real utilizando Apache Kafka como sistema de mensagens distribuídas, a API Open-Meteo como fonte de dados climáticos em tempo real, e MongoDB como banco de dados de armazenamento persistente.
+
+Nesta arquitetura, um script Python requisita periodicamente dados climáticos atualizados da API Open-Meteo e os envia ao Kafka. Um conector específico processa esses dados e os armazena automaticamente no MongoDB. Essa configuração simula cenários comuns em aplicações de cidades inteligentes, monitoramento ambiental e IoT, onde sensores ou serviços externos produzem dados continuamente que precisam ser processados e armazenados em tempo real.
+
+## 1. Fluxo da Pipeline de Ingestão de Dados com Apache Kafka
+
+A pipeline completa para a ingestão de dados meteorológicos usando Open-Meteo, Apache Kafka e MongoDB é ilustrada na figura abaixo.
+
+Os papéis dentro do Apache Kafka são definidos pelos seguintes componentes:
+
+* **Produtor (Producer)**: O script Python `open-meteo-to-kafka.py`, executado com a biblioteca `confluent-kafka`.
+* **Função**: Requisita dados da API Open-Meteo e publica esses dados no tópico Kafka chamado `tempo`.
+
+---
+
 ## Parte 1: Apache Kafka 4.2.0 (KRaft) no Windows (1 Controller + 3 Brokers)
 
 ### 0) Pré-requisitos
@@ -627,13 +644,12 @@ Você deverá ver mensagens no formato JSON aparecendo na tela.
 4. **MongoDB Sink Connector:** Pega esses dados do Connect e realiza o *insert* de cada mensagem como um documento na coleção `tempo_now` do banco `clima_db`.
 5. **Compass:** Interface gráfica que exibe o banco assim que os dados são persistidos no MongoDB.
 
-```
 ---
 
 **Link para documentação oficial**:
 
-   * Apache Kafka: [https://kafka.apache.org/documentation/](https://kafka.apache.org/documentation/)
-   * Kafka Connect: [https://docs.confluent.io/home/connect/index.html](https://docs.confluent.io/home/connect/index.html)
-   * MongoDB Connector: [https://www.confluent.io/hub/mongodb/kafka-connect-mongodb](https://www.confluent.io/hub/mongodb/kafka-connect-mongodb)
+* Apache Kafka: [https://kafka.apache.org/documentation/](https://kafka.apache.org/documentation/)
+* Kafka Connect: [https://docs.confluent.io/home/connect/index.html](https://docs.confluent.io/home/connect/index.html)
+* MongoDB Connector: [https://www.confluent.io/hub/mongodb/kafka-connect-mongodb](https://www.confluent.io/hub/mongodb/kafka-connect-mongodb)
 
----
+```
