@@ -1,4 +1,3 @@
-```markdown
 # Apache Kafka 4.2.0 (KRaft) no Windows & Integração com MongoDB
 
 Este repositório contém o guia passo a passo para configurar um cluster Apache Kafka 4.2.0 no Windows, contendo 1 Controller e 3 Brokers. A segunda parte detalha um caso de uso prático integrando dados climáticos (Open-Meteo) com Kafka Connect e MongoDB.
