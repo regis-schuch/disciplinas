@@ -653,5 +653,5 @@ Você deverá ver mensagens no formato JSON aparecendo na tela.
 * Apache Kafka: [https://kafka.apache.org/documentation/](https://kafka.apache.org/documentation/)
 * Kafka Connect: [https://docs.confluent.io/home/connect/index.html](https://docs.confluent.io/home/connect/index.html)
 * MongoDB Connector: [https://www.confluent.io/hub/mongodb/kafka-connect-mongodb](https://www.confluent.io/hub/mongodb/kafka-connect-mongodb)
-
+* Open-Meteo API: [[https://www.confluent.io/hub/mongodb/kafka-connect-mongodb](https://open-meteo.com/en/docs)
 ```
