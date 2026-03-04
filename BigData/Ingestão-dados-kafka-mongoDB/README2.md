@@ -591,14 +591,17 @@ TOPICO = 'tempo_json'
 
 def enviar_dados():
     while True:
-        r = requests.get("[https://api.open-meteo.com/v1/forecast?latitude=-29.171&longitude=-53.5&current_weather=true](https://api.open-meteo.com/v1/forecast?latitude=-29.171&longitude=-53.5&current_weather=true)")
+        r = requests.get("https://api.open-meteo.com/v1/forecast?latitude=-29.171&longitude=-53.5&current_weather=true")
         if r.status_code == 200:
             tempo = r.json().get("current_weather", {})
             tempo["timestamp"] = time.strftime('%Y-%m-%dT%H:%M:%S')
-            producer.produce(TOPICO, value=json.dumps(tempo))
+
+            producer.produce(TOPICO, value=json.dumps(tempo).encode("utf-8"))
             producer.flush()
+
             print("Enviado:", tempo)
-        time.sleep(10)
+
+        time.sleep(300)
 
 if __name__ == "__main__":
     enviar_dados()
